@@ -17,6 +17,9 @@ class Storage:
         exists = os.path.exists(dir)
         return exists
 
+    def serialize(self, data):
+        return json.dumps(data)
+
     def writeFile(self):
         cdir = os.getcwd()
         checkDir = f'{self.path}/{self.entity}.json'
@@ -24,11 +27,11 @@ class Storage:
         if(hasStorage != True):
             # file needs to be created - write blank file
             with open(checkDir, 'w') as fp:
-                str = json.dumps({})
+                str = self.serialize([])
                 fp.write(str)
         else :
             with open(checkDir, 'w') as fp:
-                str = json.dumps(self.bucket)
+                str = self.serialize(self.bucket)
                 fp.write(str)
 
     def readFile(self):
